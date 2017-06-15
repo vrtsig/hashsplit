@@ -1,6 +1,9 @@
 import numpy as np
 from numpy.random import RandomState
 import pytest
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import cross_val_score
+from sklearn.datasets import load_iris
 
 from hashsplit import HashShuffleSplit, HashKFold
 from hashsplit.hashsplit import ignore_overflow, HashSplitMixin
@@ -126,4 +129,8 @@ def _common_checks(splitter):
         test_labels = dup_labels[test]
         assert(len(np.intersect1d(train_labels, test_labels)) == 0)
 
-    # make sure the cross-validators work in sklearn pipelines
+    # make sure the cross-validator fits in the sklearn workflow
+    iris = load_iris()
+    labels = ['sample%03d' % i for i in range(iris.data.shape[0])]
+    model = LogisticRegression()
+    cross_val_score(model, iris.data, iris.target, cv=ss, groups=labels)
