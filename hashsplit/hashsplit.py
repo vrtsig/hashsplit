@@ -257,4 +257,4 @@ def _validate_shuffle_split(n_samples, test_size, train_size):
                          'should be smaller or equal to 1.0. Reduce test_size and/or '
                          'train_size.' % (train_size + test_size))
 
-    return train_size, test_size
+    return test_size, train_size

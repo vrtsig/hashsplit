@@ -27,7 +27,7 @@ def test_ignore_overflow():
 
 def test_HashSplitMixin():
     hsm = HashSplitMixin()
-    labels = ['customer' + '%04d' % i for i in range(1000)]
+    labels = ['sample' + '%04d' % i for i in range(1000)]
     h0 = hsm._str_to_uint(labels)
 
     # make sure random seeds work as expected:
@@ -55,7 +55,7 @@ def test_HashKFoldSplit():
 
     # in addition to the above, every label should appear exactly once in the
     # test set across all folds
-    labels = np.array(['customer%04d' % i for i in range(1000)])
+    labels = np.array(['sample%04d' % i for i in range(1000)])
     X, y = _makeXy(labels)
     hkf = HashKFold(n_splits=5, random_state=0)
     test_labels = np.array([])
@@ -89,7 +89,7 @@ def _common_checks(splitter):
                 return False
         return True
 
-    labels = ['customer%04d' % i for i in range(1000)]
+    labels = ['sample%04d' % i for i in range(1000)]
     X, y = _makeXy(labels)
 
     # two runs should yield the same result
